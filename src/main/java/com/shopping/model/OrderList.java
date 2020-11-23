@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.shopping.model;
-
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
@@ -14,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -23,7 +16,7 @@ import javax.persistence.OneToMany;
  * @author Heidar
  */
 @Entity
-public class Product implements Serializable {
+public class OrderList implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,14 +24,15 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private int price;
-    private String genre;
-    private String photo;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<OrderList> orderlist;
+    private List<Product> product;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    
+
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private User user;
 
@@ -49,25 +43,26 @@ public class Product implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
     
 
-    public List<OrderList> getOrderlist() {
-        return orderlist;
+    public List<Product> getProduct() {
+        return product;
     }
 
-    public void setOrderlist(List<OrderList> orderlist) {
-        this.orderlist = orderlist;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setProduct(List<Product> product) {
+        this.product = product;
     }
     
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -85,28 +80,6 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    
-
-    
-    
-    
-
-    
     
 }

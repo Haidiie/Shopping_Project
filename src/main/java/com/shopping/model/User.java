@@ -1,11 +1,16 @@
 package com.shopping.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -44,17 +49,34 @@ public class User implements Serializable {
     
     private String role;
     
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    //@JsonBackReference
-    //private List <Product> product;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
+    private List <Product> product;
 
-//    public List<Product> getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(List<Product> product) {
-//        this.product = product;
-//    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
+    private List <OrderList> orderlist;
+
+    public List<OrderList> getOrderlist() {
+        return orderlist;
+    }
+
+    public void setOrderlist(List<OrderList> orderlist) {
+        this.orderlist = orderlist;
+    }
+
+   
+    
+    
+    
+    
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
 
     
     public String getRole() {
@@ -111,6 +133,20 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User(String email, String password, String address, String city, boolean agreed, String role) {
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.city = city;
+        this.agreed = agreed;
+        this.role = role;
+    }
+
+    
+
+    public User() {
     }
     
     
