@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.shopping.model;
-
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -33,11 +24,7 @@ public class Product implements Serializable {
     private int price;
     private String genre;
     private String photo;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    @JsonManagedReference
-    private List<OrderList> orderlist;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     private User user;
@@ -50,16 +37,6 @@ public class Product implements Serializable {
         this.user = user;
     }
 
-    
-
-    public List<OrderList> getOrderlist() {
-        return orderlist;
-    }
-
-    public void setOrderlist(List<OrderList> orderlist) {
-        this.orderlist = orderlist;
-    }
-
     public String getGenre() {
         return genre;
     }
@@ -67,7 +44,6 @@ public class Product implements Serializable {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-    
 
     public String getName() {
         return name;
@@ -101,12 +77,4 @@ public class Product implements Serializable {
         this.photo = photo;
     }
 
-    
-
-    
-    
-    
-
-    
-    
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.shopping.security;
 
 import org.springframework.context.annotation.Bean;
@@ -17,56 +12,42 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class MyConfig extends WebSecurityConfigurerAdapter{
-    
+public class MyConfig extends WebSecurityConfigurerAdapter {
+
     @Bean
-    public UserDetailsService ServiceClass(){
-        
+    public UserDetailsService ServiceClass() {
+
         return new CustomService();
     }
-    
-    
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        
-        
+    public BCryptPasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
-    
-    
+
     @Bean
-    public DaoAuthenticationProvider authentication(){
-        
+    public DaoAuthenticationProvider authentication() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        
         auth.setUserDetailsService(ServiceClass());
         auth.setPasswordEncoder(passwordEncoder());
-        
         return auth;
-        
     }
-    
-    // Authorization configuration
 
-       @Override
+    // Authorization configuration
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       
         auth.authenticationProvider(authentication());
-        
     }
-    
-    
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
-        
         //skriv en separat för båda om du vill ha fler sidor
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/default",true)
+                .defaultSuccessUrl("/default", true)
                 .and().csrf().disable();
     }
 }

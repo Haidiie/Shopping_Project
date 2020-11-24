@@ -2,14 +2,12 @@ package com.shopping.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,17 +22,38 @@ public class OrderList implements Serializable {
     private Long id;
     private String name;
     private int price;
+    private String usermail;
+    private String useraddress;
+    private String usercity;
     
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Product> product;
-    
-    
-
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private User user;
+
+    public String getUseraddress() {
+        return useraddress;
+    }
+
+    public void setUseraddress(String useraddress) {
+        this.useraddress = useraddress;
+    }
+
+    public String getUsercity() {
+        return usercity;
+    }
+
+    public void setUsercity(String usercity) {
+        this.usercity = usercity;
+    }
+
+    public String getUsermail() {
+        return usermail;
+    }
+
+    public void setUsermail(String usermail) {
+        this.usermail = usermail;
+    }
 
     public User getUser() {
         return user;
@@ -43,18 +62,6 @@ public class OrderList implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
-
-    public List<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<Product> product) {
-        this.product = product;
-    }
-    
-    
 
     public Long getId() {
         return id;
@@ -80,6 +87,4 @@ public class OrderList implements Serializable {
         this.price = price;
     }
 
-
-    
 }

@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -27,35 +26,34 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(unique = true)   
+
+    @Column(unique = true)
     @Email(regexp = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)", message = "must be a valid email address")
     private String email;
 
-    
-    @Column(length=100)
+    @Column(length = 100)
     @NotBlank(message = "must enter a password")
     @Size(min = 6, message = "Wrong password")
     private String password;
-    
+
     @NotBlank(message = "must enter a valid address")
     private String address;
-    
+
     @NotBlank(message = "must enter a valid city")
     private String city;
-    
+
     @AssertTrue(message = "must accept terms and conditions")
     private boolean agreed;
-    
+
     private String role;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    @JsonBackReference
-    private List <Product> product;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonBackReference
-    private List <OrderList> orderlist;
+    private List<Product> product;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
+    private List<OrderList> orderlist;
 
     public List<OrderList> getOrderlist() {
         return orderlist;
@@ -65,11 +63,6 @@ public class User implements Serializable {
         this.orderlist = orderlist;
     }
 
-   
-    
-    
-    
-    
     public List<Product> getProduct() {
         return product;
     }
@@ -78,7 +71,6 @@ public class User implements Serializable {
         this.product = product;
     }
 
-    
     public String getRole() {
         return role;
     }
@@ -144,12 +136,7 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    
-
     public User() {
     }
-    
-    
 
-    
 }

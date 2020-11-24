@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.shopping.security;
 
 import com.shopping.model.User;
@@ -12,28 +7,24 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+public class CustomUserDetails implements UserDetails {
 
-
-
-public class CustomUserDetails implements UserDetails{
-    
     private User user;
-    
+
     public CustomUserDetails(User user) {
         this.user = user;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-        
+
         return Arrays.asList(authority);
     }
 
     @Override
     public String getPassword() {
-       return user.getPassword();
+        return user.getPassword();
     }
 
     @Override
@@ -60,5 +51,5 @@ public class CustomUserDetails implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-    
+
 }

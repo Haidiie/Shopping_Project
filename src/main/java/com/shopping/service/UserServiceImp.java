@@ -16,31 +16,24 @@ import org.springframework.stereotype.Service;
  * @author Heidar
  */
 @Service
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder encrypt;
-    
+
     @Autowired
     private ProductRepository prod;
-    
+
     @Autowired
     private UserRepository use;
-    
+
     @Autowired
     private OrderListRepository order;
-    
+
     @Override
     public void save(User user) {
         use.save(user);
     }
-
-    /*
-    @Override
-    public List<User> verify(String email, String password) {
-        return repo.findByEmailAndPassword(email, password);
-    }
-*/
 
     @Override
     public String enCryptedPassword(User user) {
@@ -76,7 +69,5 @@ public class UserServiceImp implements UserService{
     public List<Product> findbynamehaving(String name) {
         return prod.findbynamehaving(name);
     }
-    
-    
-    
+
 }

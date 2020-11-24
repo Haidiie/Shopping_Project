@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.shopping.repository;
 
 import com.shopping.model.Product;
@@ -17,9 +12,8 @@ import org.springframework.stereotype.Repository;
  * @author Heidar
  */
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Long>{
-    
+public interface ProductRepository extends CrudRepository<Product, Long> {
+
     @Query("select p from Product p where p.name like %:n%")
     public List<Product> findbynamehaving(@Param("n") String name);
-    
 }
